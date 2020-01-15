@@ -68,18 +68,20 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response) {
             console.log(response);
-            $("#curLocation").html("<h3>"+response.city.name+"</h3>");
+            $("#curLocation").html("<h1>"+response.city.name+"</h1>");
             var currentDate = moment(response.list[0].dt_txt).format('MMMM Do');
-            $("#curDate").html("<h3>"+currentDate+"</h3>");
-            $("#curTemp").html("<h3>"+response.list[0].main.temp+" °F</h3>");
+            $("#curDate").html("<h2>"+currentDate+"</h2>");
+            var icon = "<img src='http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + "@2x.png'>";
+            $("#curTemp").html("<h2>"+response.list[0].main.temp+" °F</h2>" + icon);
 
             $("#curHumid").text(response.list[0].main.humidity+"%");
             $("#curWind").text(response.list[0].wind.speed+" MPH");
             
             var uvCoordinates = "lat="+response.city.coord.lat+"&lon="+response.city.coord.lon;
             getUV(uvCoordinates);
-            
+
             saveCity(uvCoordinates, response.city.name);
+            fiveDay(response);
             var cityName = response.city.name;
             return cityName;
         });
@@ -139,8 +141,24 @@ $(document).ready(function() {
         }
     }
 
+    function fiveDay(pass) {
+        var tmp = "";
+        var listNum = 1;
+        for(var i = 0; i < 5; i++) {
+            tmp += "<div class='col-md forecast'>";
+            tmp += "<h3 style='color:white'>"+moment(pass.list[listNum].dt_txt).format('MM/DD');+"</h3>"
+            var icon = "http://openweathermap.org/img/wn/" + pass.list[listNum].weather[0].icon + "@2x.png";
+            tmp += "<img src='"+icon+"'>";
+            tmp += "<h3>"+pass.list[listNum].main.temp+" °F</h3>";
+            tmp += "<h3>"+pass.list[listNum].main.humidity+"% HUM</h3></div>";
+            listNum += 8;
+        }
+        $("#fiveDay").html(tmp);
+        return;
+    }
+
 });
 
 /*
-searchHistory
+
 */

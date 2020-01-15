@@ -13,7 +13,6 @@ body {
     border: 1px solid gray;
     border-radius: 5px;
     width: 100%;
-    overflow-y: scroll;
 }
 
 #curWeatherImg {
@@ -29,20 +28,20 @@ body {
 
 #curLocation {
     position: absolute;
-    top: 8px;
-    left: 16px;
+    top: 40px;
+    left: 40px;
 }
 
 #curDate {
     position: absolute;
-    bottom: 8px;
-    left: 16px;
+    bottom: 30px;
+    left: 60px;
 }
 
 #curTemp {
     position: absolute;
-    bottom: 8px;
-    right: 16px;
+    bottom: 0px;
+    right: 60px;
 }
 
 span {
@@ -54,4 +53,11 @@ span {
     border-bottom: 5px solid black;
     border-radius: 5px;
     margin-top: 20px;
+}
+
+.forecast {
+    background-image: linear-gradient( rgb(0, 21, 43), rgb(93, 174, 255));
+    border: 3px solid darkblue;
+    border-radius: 20px;
+    margin: 10px;
 }
