@@ -1,16 +1,22 @@
+var citySave  = [];
+
 $(document).ready(function() {
     loadPage();
 
     $("#citySearchBtn").on("click", function() {
         var usrEntry = $("#citySearchTxt").val();
-        console.log(usrEntry);
         if(!validateInput(usrEntry)) {
             console.log("invalid");
             return;
         } else {
-            console.log("good");
+            searchCity(usrEntry);
             return;
         }
+    });
+
+    $(document).on("click", ".historyOption", function() {
+        var load = JSON.parse(localStorage.getItem("citySearchHistory"));
+        getCity(load[$(this).attr('id')][0]);
     });
 
     function loadPage() {
@@ -28,56 +34,52 @@ $(document).ready(function() {
         }
     }
 
-    function searchCity() {
-
+    function searchCity(usrEntry) {
+        var pre ="q=";
+        usrEntry = pre + usrEntry;
+        getCity(usrEntry);
         return;
     }
 
     function loadCity() {
+        console.log("yep");
         var load = JSON.parse(localStorage.getItem("citySearchHistory"));
-        getCity(load[0]);
+        getCity(load[0][0]);
         return;
     }
 
     function yesUsrLocal(response) {
-        var city = coordinates(response);
-        var cityName = getCity(city);
-        saveCity(city, cityName);
-        return;
-    }
-
-    function coordinates(response) {
         var latitude  = response.coords.latitude;
         var longitude = response.coords.longitude;
         var city = "lat="+latitude+"&lon="+longitude;
-        return city;
+        getCity(city);
+        return;
     }
 
     function noUsrLocal() {
         var city = "lat=38.89037&lon=-77.03196";
-        var cityName = getCity(city);
-        saveCity(city, cityName);
+        getCity(city);
         return;
     }
 
     function getCity(city) {
         $.ajax({
-            url: "https://api.openweathermap.org/data/2.5/forecast?"+city+"&APPID=79b2eb263cef8df7e36fe34823251ff5",
+            url: "https://api.openweathermap.org/data/2.5/forecast?"+city+"&units=imperial&APPID=79b2eb263cef8df7e36fe34823251ff5",
             method: "GET"
         }).then(function(response) {
             console.log(response);
             $("#curLocation").html("<h3>"+response.city.name+"</h3>");
             var currentDate = moment(response.list[0].dt_txt).format('MMMM Do');
             $("#curDate").html("<h3>"+currentDate+"</h3>");
-            var kelvin = response.list[0].main.temp;
-            var currentTemp = ((kelvin - 273.15)*1.8)+32;
-            $("#curTemp").html("<h3>"+currentTemp.toFixed(2)+"°F</h3>");
+            $("#curTemp").html("<h3>"+response.list[0].main.temp+" °F</h3>");
 
             $("#curHumid").text(response.list[0].main.humidity+"%");
             $("#curWind").text(response.list[0].wind.speed+" MPH");
             
             var uvCoordinates = "lat="+response.city.coord.lat+"&lon="+response.city.coord.lon;
             getUV(uvCoordinates);
+            
+            saveCity(uvCoordinates, response.city.name);
             var cityName = response.city.name;
             return cityName;
         });
@@ -97,12 +99,32 @@ $(document).ready(function() {
     function saveCity(city, cityName){
         if(localStorage.getItem("citySearchHistory") !== null) {
             citySave = JSON.parse(localStorage.getItem("citySearchHistory"));
-            citySave += [city, cityName];
+            for(var i = 0; i < citySave.length; i++) {
+                if(citySave[i][1] === cityName) {
+                    loadSearchHistory();
+                    return;
+                }
+            }
+            citySave.unshift([city, cityName]);
             localStorage.setItem("citySearchHistory", JSON.stringify(citySave));
         } else {
-            citySave = [city,cityName];
+            citySave.unshift([city, cityName]);
             localStorage.setItem("citySearchHistory", JSON.stringify(citySave));
         }
+        loadSearchHistory();
+        return;
+    }
+
+    function loadSearchHistory() {
+        var load = JSON.parse(localStorage.getItem("citySearchHistory"));
+        var tmp = "";
+        for(var i = 0; i < load.length; i++) {
+            tmp += "<button class='historyOption' id='"+i+"'>";
+            tmp += load[i][1];
+            tmp += "</button>"
+        }
+        $("#searchHistory").html(tmp);
+        return;
     }
 
     function validateInput(usrEntry) {
@@ -120,13 +142,5 @@ $(document).ready(function() {
 });
 
 /*
-.html
-curLocation
-curDate
-curTemp
-
-.text
-curHumid
-curWind
-curUV
+searchHistory
 */
