@@ -1,0 +1,57 @@
+body {
+    text-align: center;
+}
+
+#searchBar {
+    margin-top: 50px;
+    margin-left: -5px;
+}
+
+#searchHistory {
+    margin-top: 50px;
+    margin-left: -5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+#curWeatherImg {
+    width: 100%;
+}
+
+#curWeatherContainer {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+}
+
+#curLocation {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+#curDate {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+
+#curTemp {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+}
+
+span {
+    display: block;
+}
+
+#curExtraContainer {
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+    border-radius: 5px;
+    margin-top: 20px;
+}
