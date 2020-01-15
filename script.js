@@ -13,10 +13,17 @@ $(document).ready(function() {
             return;
         }
     });
+    
+    $("#clearLocalBtn").on("click", function() {
+        window.localStorage.clear();
+        location.reload();
+        return;
+    });
 
     $(document).on("click", ".historyOption", function() {
         var load = JSON.parse(localStorage.getItem("citySearchHistory"));
         getCity(load[$(this).attr('id')][0]);
+        return;
     });
 
     function loadPage() {
@@ -71,7 +78,7 @@ $(document).ready(function() {
             $("#curLocation").html("<h1>"+response.city.name+"</h1>");
             var currentDate = moment(response.list[0].dt_txt).format('MMMM Do');
             $("#curDate").html("<h2>"+currentDate+"</h2>");
-            var icon = "<img src='http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + "@2x.png'>";
+            var icon = "<img src='http://openweathermap.org/img/wn/" + (response.list[0].weather[0].icon).slice(0,-1) + "d@2x.png'>";
             $("#curTemp").html("<h2>"+response.list[0].main.temp+" °F</h2>" + icon);
 
             $("#curHumid").text(response.list[0].main.humidity+"%");
@@ -121,7 +128,7 @@ $(document).ready(function() {
         var load = JSON.parse(localStorage.getItem("citySearchHistory"));
         var tmp = "";
         for(var i = 0; i < load.length; i++) {
-            tmp += "<button class='historyOption' id='"+i+"'>";
+            tmp += "<button class='historyOption btn btn-outline-danger' id='"+i+"'>";
             tmp += load[i][1];
             tmp += "</button>"
         }
@@ -146,11 +153,11 @@ $(document).ready(function() {
         var listNum = 1;
         for(var i = 0; i < 5; i++) {
             tmp += "<div class='col-md forecast'>";
-            tmp += "<h3 style='color:white'>"+moment(pass.list[listNum].dt_txt).format('MM/DD');+"</h3>"
-            var icon = "http://openweathermap.org/img/wn/" + pass.list[listNum].weather[0].icon + "@2x.png";
+            tmp += "<h3>"+moment(pass.list[listNum].dt_txt).format('MM/DD');+"</h3>"
+            var icon = "http://openweathermap.org/img/wn/" + (pass.list[listNum].weather[0].icon).slice(0,-1) + "d@2x.png";
             tmp += "<img src='"+icon+"'>";
-            tmp += "<h3>"+pass.list[listNum].main.temp+" °F</h3>";
-            tmp += "<h3>"+pass.list[listNum].main.humidity+"% HUM</h3></div>";
+            tmp += "<h3 style='color:black'>"+pass.list[listNum].main.temp+" °F</h3>";
+            tmp += "<h3 style='color:black'>"+pass.list[listNum].main.humidity+"% HUM</h3></div>";
             listNum += 8;
         }
         $("#fiveDay").html(tmp);
