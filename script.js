@@ -49,7 +49,6 @@ $(document).ready(function() {
     }
 
     function loadCity() {
-        console.log("yep");
         var load = JSON.parse(localStorage.getItem("citySearchHistory"));
         getCity(load[0][0]);
         return;
@@ -78,7 +77,7 @@ $(document).ready(function() {
             $("#curLocation").html("<h1>"+response.city.name+"</h1>");
             var currentDate = moment(response.list[0].dt_txt).format('MMMM Do');
             $("#curDate").html("<h2>"+currentDate+"</h2>");
-            var icon = "<img src='http://openweathermap.org/img/wn/" + (response.list[0].weather[0].icon).slice(0,-1) + "d@2x.png'>";
+            var icon = "<img src='https://openweathermap.org/img/wn/" + (response.list[0].weather[0].icon).slice(0,-1) + "d@2x.png'>";
             $("#weatherPic").html(icon);
             $("#curTemp").html("<h2>"+response.list[0].main.temp+" °F</h2>");
             
@@ -98,7 +97,7 @@ $(document).ready(function() {
 
     function getUV(uvCoordinates) {
         $.ajax({
-            url: "http://api.openweathermap.org/data/2.5/uvi?appid=79b2eb263cef8df7e36fe34823251ff5&"+uvCoordinates,
+            url: "https://api.openweathermap.org/data/2.5/uvi?appid=79b2eb263cef8df7e36fe34823251ff5&"+uvCoordinates,
             method: "GET"
         }).then(function(response) {
             var uvIndex = response.value;
@@ -156,7 +155,7 @@ $(document).ready(function() {
         for(var i = 0; i < 5; i++) {
             tmp += "<div class='col-md forecast'>";
             tmp += "<h3>"+moment(pass.list[listNum].dt_txt).format('MM/DD');+"</h3>"
-            var icon = "http://openweathermap.org/img/wn/" + (pass.list[listNum].weather[0].icon).slice(0,-1) + "d@2x.png";
+            var icon = "https://openweathermap.org/img/wn/" + (pass.list[listNum].weather[0].icon).slice(0,-1) + "d@2x.png";
             tmp += "<img src='"+icon+"'>";
             tmp += "<h3 style='color:black'>"+pass.list[listNum].main.temp+" °F</h3>";
             tmp += "<h3 style='color:black'>"+pass.list[listNum].main.humidity+"% HUM</h3></div>";
