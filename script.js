@@ -167,7 +167,3 @@ $(document).ready(function() {
     }
 
 });
-
-/*
-
-*/

@@ -33,7 +33,6 @@ input[type="text"] {
     text-align: center;
     color: white;
     border-radius: 60px;
-    /* border: 1px solid white; */
     overflow: hidden;
     margin-top: 20px;
     -webkit-text-stroke-width: 1px;
@@ -55,13 +54,13 @@ input[type="text"] {
 #weatherPic {
     position: absolute;
     top: 0px;
-    right: 140px;
+    right: 145px;
 }
 
 #curTemp {
     position: absolute;
     top: 30px;
-    right: 30px;
+    right: 40px;
 }
 
 span {
