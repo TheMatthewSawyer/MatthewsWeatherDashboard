@@ -1,6 +1,6 @@
 # [MatthewsWeatherDashboard](https://thematthewsawyer.github.io/MatthewsWeatherDashboard/)
 ### https://github.com/TheMatthewSawyer/MatthewsWeatherDashboard/
-A weather dashboard that can fetch user location, stores every search locally, and has a five day forecast.
+A weather dashboard that can fetch user location, stores every search locally, and has a five day forecast. Now with 30% more panda!
 
 ![Screenshot of the Planner](assets/images/pic-for-readme.png)
 
