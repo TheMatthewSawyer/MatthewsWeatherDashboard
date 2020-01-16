@@ -79,7 +79,9 @@ $(document).ready(function() {
             var currentDate = moment(response.list[0].dt_txt).format('MMMM Do');
             $("#curDate").html("<h2>"+currentDate+"</h2>");
             var icon = "<img src='http://openweathermap.org/img/wn/" + (response.list[0].weather[0].icon).slice(0,-1) + "d@2x.png'>";
-            $("#curTemp").html("<h2>"+response.list[0].main.temp+" °F</h2>" + icon);
+            $("#weatherPic").html(icon);
+            $("#curTemp").html("<h2>"+response.list[0].main.temp+" °F</h2>");
+            
 
             $("#curHumid").text(response.list[0].main.humidity+"%");
             $("#curWind").text(response.list[0].wind.speed+" MPH");

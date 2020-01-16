@@ -19,7 +19,7 @@ input[type="text"] {
 
 #searchHistory {
     margin-top: 50px;
-    margin-left: -5px;
+    margin-left: 0px;
     border: 1px solid gray;
     border-radius: 5px;
     width: 100%;
@@ -32,26 +32,36 @@ input[type="text"] {
     position: relative;
     text-align: center;
     color: white;
-    border: 1px solid white;
+    border-radius: 60px;
+    /* border: 1px solid white; */
+    overflow: hidden;
     margin-top: 20px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }
 
 #curLocation {
     position: absolute;
-    top: 40px;
+    top: 10px;
     left: 40px;
 }
 
 #curDate {
     position: absolute;
-    bottom: 30px;
-    left: 60px;
+    top: 50px;
+    left: 70px;
+}
+
+#weatherPic {
+    position: absolute;
+    top: 0px;
+    right: 140px;
 }
 
 #curTemp {
     position: absolute;
-    bottom: 0px;
-    right: 60px;
+    top: 30px;
+    right: 30px;
 }
 
 span {
